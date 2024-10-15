@@ -15,32 +15,34 @@ using UnityEngine.InputSystem;
 [DefaultExecutionOrder(-100)]
 public class UIManager : MonoBehaviour
 {
-#region UI Elements
+    #region UI Elements
     [SerializeField] private Transform crosshair;
     [SerializeField] private Transform target;
-#endregion 
+    #endregion
 
-#region Singleton
+    #region Singleton
     static private UIManager instance;
     static public UIManager Instance
     {
         get { return instance; }
     }
-#endregion 
+    #endregion
 
-#region Actions
+    #region Actions
     private Actions actions;
     private InputAction mouseAction;
     private InputAction deltaAction;
     private InputAction selectAction;
-#endregion
+    #endregion
 
-#region Events
+    #region Events
     public delegate void TargetSelectedEventHandler(Vector3 worldPosition);
     public event TargetSelectedEventHandler TargetSelected;
-#endregion
+    #endregion
 
-#region Init & Destroy
+    private Camera cam;
+
+    #region Init & Destroy
     void Awake()
     {
         if (instance != null)
@@ -59,6 +61,10 @@ public class UIManager : MonoBehaviour
         target.gameObject.SetActive(false);
     }
 
+    void Start()
+    {
+        cam = Camera.main;
+    }
     void OnEnable()
     {
         actions.mouse.Enable();
@@ -68,21 +74,31 @@ public class UIManager : MonoBehaviour
     {
         actions.mouse.Disable();
     }
-#endregion Init
+    #endregion Init
 
-#region Update
+    #region Update
     void Update()
     {
         MoveCrosshair();
         SelectTarget();
     }
 
-    private void MoveCrosshair() 
+    private void MoveCrosshair()
     {
         Vector2 mousePos = mouseAction.ReadValue<Vector2>();
 
+        // Debug.Log(mousePos);
+
         // FIXME: Move the crosshair position to the mouse position (in world coordinates)
-        // crosshair.position = ...;
+        Vector3 crossPos = new Vector3(mousePos.x,0,mousePos.y);
+        Ray ray = cam.ScreenPointToRay(mousePos);
+        RaycastHit spot;
+        Physics.Raycast(ray.origin,ray.direction,out spot,Mathf.Infinity);
+        Vector3 loc = spot.point;
+        crosshair.position = loc;
+
+
+
     }
 
     private void SelectTarget()
@@ -91,11 +107,11 @@ public class UIManager : MonoBehaviour
         {
             // set the target position and invoke 
             target.gameObject.SetActive(true);
-            target.position = crosshair.position;     
-            TargetSelected?.Invoke(target.position);       
+            target.position = crosshair.position;
+            TargetSelected?.Invoke(target.position);
         }
     }
 
-#endregion Update
+    #endregion Update
 
 }
