@@ -14,7 +14,8 @@ public class Follower : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = Vector3.Lerp(transform.position,marble.transform.position,0.5f);
+        Vector3 spot = new Vector3(marble.transform.position.x,0.5f,marble.transform.position.z);
+        transform.position = Vector3.Lerp(transform.position,spot,0.5f);
     }
     void OnDrawGizmos(){
         Gizmos.color = Color.red;
