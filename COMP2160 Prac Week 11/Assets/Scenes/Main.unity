@@ -239,6 +239,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 377319425}
+  - component: {fileID: 377319426}
   m_Layer: 0
   m_Name: follower
   m_TagString: Untagged
@@ -255,13 +256,25 @@ Transform:
   m_GameObject: {fileID: 377319424}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7675371378090306038}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &377319426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 377319424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f64f5d27e6b3eb742bf3e49e9ef974bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -441,6 +454,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Marble
+      objectReference: {fileID: 0}
+    - target: {fileID: 7840369716606208530, guid: 1a592d885d76b4a89afcc829b8d5f560,
+        type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7840369716606208530, guid: 1a592d885d76b4a89afcc829b8d5f560,
         type: 3}
